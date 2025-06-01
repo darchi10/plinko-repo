@@ -18,7 +18,7 @@ class PlinkoBoard:
                     self.cordinates.append((x, y))
         
         for (x, y) in self.cordinates:
-            pygame.draw.circle(screen, BLACK, (x, y), PIN_RADIUS)
+            pygame.draw.circle(screen, BLACK, (x, y), 7)
 
 
     def get_pins_cordinates(self):
@@ -28,14 +28,12 @@ class PlinkoBoard:
         slot_width = WIDTH // NUMBER_OF_SLOTS
         for i in range(NUMBER_OF_SLOTS):
             x = i * slot_width
-            # Iscrtavanje okvira svakog slota
+
             pygame.draw.rect(screen, GREY, (x, HEIGHT - 80, slot_width, 80), 2)
             
-            # Iscrtavanje vrijednosti u sredini slota
             value_text = font.render(str(SLOT_VALUES[i]), True, BLACK)
             text_rect = value_text.get_rect(center=(x + slot_width // 2, HEIGHT - 40))
             screen.blit(value_text, text_rect)
 
-        # (Opcionalno) Crtaj crtu iznad slotova kao separator
         pygame.draw.line(screen, BLACK, (0, HEIGHT - 80), (WIDTH, HEIGHT - 80), 2)
 

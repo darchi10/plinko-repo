@@ -24,12 +24,11 @@ class Ball:
             distance = (dx ** 2 + dy ** 2) ** 0.5
 
             if distance < PIN_RADIUS + self.radius:
-                # jednostavno odbijanje: preusmjeri brzine
                 angle = math.atan2(dy, dx)
                 speed = (self.vx ** 2 + self.vy ** 2) ** 0.5
                 self.vx = speed * math.cos(angle)
                 self.vy = speed * math.sin(angle)
-                break  # izbjegni višestruke sudare
+                #break 
             
             if self.x >= (WIDTH - 20) or self.x <= 20: self.vx *= -1
 

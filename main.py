@@ -25,7 +25,6 @@ while running:
 
         if event.type == pygame.MOUSEBUTTONDOWN and ball is None:
             x = event.pos[0]
-            x = (x // CELL_WIDTH) * CELL_WIDTH + CELL_WIDTH // 2
             ball = Ball(x, 40)
 
     board.draw_pins(screen)
