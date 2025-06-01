@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 from settings import *
 from board import PlinkoBoard
 from ball import Ball
@@ -11,34 +12,34 @@ font = pygame.font.SysFont("Arial", 24)
 FPS = pygame.time.Clock()
 
 board = PlinkoBoard()
-ball = None
+balls = []
 score = 0
 
 running = True
 while running:
-    FPS.tick(30)
+    FPS.tick(60)
     screen.fill(WHITE)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN and ball is None:
-            x = event.pos[0]
-            ball = Ball(x, 40)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x = WIDTH // 2 + random.uniform(-3, 3)
+            balls.append(Ball(x, 100))
 
     board.draw_pins(screen)
     board.draw_slots(screen, font)
     boardPins = board.get_pins_cordinates()
 
-    if ball:
+    for ball in balls[:]:
         ball.draw(screen)
         ball.move(boardPins)
 
         if ball.is_done():
             index = ball.x // (WIDTH // NUMBER_OF_SLOTS)
             score += SLOT_VALUES[int(index)]
-            ball = None
+            balls.remove(ball)
 
     score_text = font.render(f"Bodovi: {score}", True, BLUE)
     screen.blit(score_text, (10, 10))

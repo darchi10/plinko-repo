@@ -1,4 +1,3 @@
-# ball.py
 import pygame
 import random
 import math
@@ -11,7 +10,7 @@ class Ball:
         self.radius = BALL_RADIUS
         self.vx = random.uniform(-0.1, 0.1)
         self.vy = 0
-        self.gravity = 0.2
+        self.gravity = 0.1
 
     def move(self, boardPins):
         self.vy += self.gravity
@@ -31,11 +30,12 @@ class Ball:
                 #break 
             
             if self.x >= (WIDTH - 20) or self.x <= 20: self.vx *= -1
-
+            if self.y >= (HEIGHT - 80):
+                self.vx = 0
 
     def draw(self, screen):
         pygame.draw.circle(screen, RED, (self.x, self.y), BALL_RADIUS)
 
     def is_done(self):
-        return self.y >= HEIGHT - 40
+        return self.y >= HEIGHT - 20
 

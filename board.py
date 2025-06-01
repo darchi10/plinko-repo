@@ -8,7 +8,7 @@ class PlinkoBoard:
     def draw_pins(self, screen):
         CELL_WIDTH = (WIDTH // COLS)
         if not self.cordinates:
-            for row in range(ROWS):
+            for row in range(1, ROWS):
                 num_pins = row + 1 
                 start_x = WIDTH // 2 - (num_pins - 1) * CELL_WIDTH // 2
 
@@ -25,14 +25,13 @@ class PlinkoBoard:
         return self.cordinates
 
     def draw_slots(self, screen, font):
-        slot_width = WIDTH // NUMBER_OF_SLOTS
         for i in range(NUMBER_OF_SLOTS):
-            x = i * slot_width
+            x = i * SLOT_WIDTH
 
-            pygame.draw.rect(screen, GREY, (x, HEIGHT - 80, slot_width, 80), 2)
+            pygame.draw.rect(screen, GREY, (x, HEIGHT - 80, SLOT_WIDTH, 80), 2)
             
             value_text = font.render(str(SLOT_VALUES[i]), True, BLACK)
-            text_rect = value_text.get_rect(center=(x + slot_width // 2, HEIGHT - 40))
+            text_rect = value_text.get_rect(center=(x + SLOT_WIDTH // 2, HEIGHT - 40))
             screen.blit(value_text, text_rect)
 
         pygame.draw.line(screen, BLACK, (0, HEIGHT - 80), (WIDTH, HEIGHT - 80), 2)
