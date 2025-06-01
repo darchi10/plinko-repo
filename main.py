@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+
 from settings import *
 from board import PlinkoBoard
 from ball import Ball
@@ -13,7 +14,8 @@ FPS = pygame.time.Clock()
 
 board = PlinkoBoard()
 balls = []
-score = 0
+balance = 100
+insufficient_balance = False
 
 running = True
 while running:
@@ -24,9 +26,13 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            x = WIDTH // 2 + random.uniform(-3, 3)
-            balls.append(Ball(x, 100))
+        if event.type == pygame.MOUSEBUTTONDOWN or (event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
+            if balance - INPUT_AMOUNT < 0:
+                insufficient_balance = True
+            else:
+                x = WIDTH // 2 + random.uniform(-3, 3)
+                balls.append(Ball(x, 100))
+                balance -= INPUT_AMOUNT
 
     board.draw_pins(screen)
     board.draw_slots(screen, font)
@@ -38,11 +44,14 @@ while running:
 
         if ball.is_done():
             index = ball.x // (WIDTH // NUMBER_OF_SLOTS)
-            score += SLOT_VALUES[int(index)]
+            balance += SLOT_VALUES[int(index)]
             balls.remove(ball)
 
-    score_text = font.render(f"Bodovi: {score}", True, BLUE)
-    screen.blit(score_text, (10, 10))
+    balance_text = font.render(f"Balance: {balance}€", True, BLUE)
+    screen.blit(balance_text, (10, 10))
+
+    if insufficient_balance and balance < INPUT_AMOUNT:
+        screen.blit(font.render("Insufficient balance!", True, RED), (10, 40))
 
     pygame.display.flip()
 

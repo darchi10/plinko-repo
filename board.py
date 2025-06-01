@@ -18,7 +18,7 @@ class PlinkoBoard:
                     self.cordinates.append((x, y))
         
         for (x, y) in self.cordinates:
-            pygame.draw.circle(screen, BLACK, (x, y), 7)
+            pygame.draw.circle(screen, BLACK, (x, y), PIN_RADIUS)
 
 
     def get_pins_cordinates(self):
