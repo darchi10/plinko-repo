@@ -2,8 +2,10 @@ import pygame
 from settings import *
 
 class PlinkoBoard:
-    def __init__(self):
+    def __init__(self, reset_button, exit_button):
         self.cordinates = []
+        self.reset_button = reset_button
+        self.exit_button = exit_button
 
     def draw_pins(self, screen):
         CELL_WIDTH = (WIDTH // COLS)
@@ -36,3 +38,14 @@ class PlinkoBoard:
 
         pygame.draw.line(screen, BLACK, (0, HEIGHT - 80), (WIDTH, HEIGHT - 80), 2)
 
+    def draw_reset_button(self, screen, font):
+        pygame.draw.rect(screen, GREY, self.reset_button)
+        reset_text_surface = font.render("Reset", True, BLACK)
+        reset_text_rect = reset_text_surface.get_rect(center=self.reset_button.center)
+        screen.blit(reset_text_surface, reset_text_rect)
+
+    def draw_exit_button(self, screen, font):
+        pygame.draw.rect(screen, GREY, self.exit_button)
+        exit_text_surface = font.render("Exit", True, BLACK)
+        exit_text_rect = exit_text_surface.get_rect(center=self.exit_button.center)
+        screen.blit(exit_text_surface, exit_text_rect)
