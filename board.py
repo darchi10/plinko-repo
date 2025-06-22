@@ -20,32 +20,32 @@ class PlinkoBoard:
                     self.cordinates.append((x, y))
         
         for (x, y) in self.cordinates:
-            pygame.draw.circle(screen, BLACK, (x, y), PIN_RADIUS)
+            pygame.draw.circle(screen, YELLOW, (x, y), PIN_RADIUS)
 
 
     def get_pins_cordinates(self):
         return self.cordinates
 
-    def draw_slots(self, screen, font):
+    def draw_slots(self, screen, font, slot_values_to_draw):
         for i in range(NUMBER_OF_SLOTS):
             x = i * SLOT_WIDTH
 
             pygame.draw.rect(screen, GREY, (x, HEIGHT - 80, SLOT_WIDTH, 80), 2)
-            
-            value_text = font.render(str(SLOT_VALUES[i]), True, BLACK)
+
+            value_text = font.render(str(slot_values_to_draw[i]), True, WHITE)
             text_rect = value_text.get_rect(center=(x + SLOT_WIDTH // 2, HEIGHT - 40))
             screen.blit(value_text, text_rect)
 
-        pygame.draw.line(screen, BLACK, (0, HEIGHT - 80), (WIDTH, HEIGHT - 80), 2)
+        pygame.draw.line(screen, WHITE, (0, HEIGHT - 80), (WIDTH, HEIGHT - 80), 2)
 
     def draw_reset_button(self, screen, font):
         pygame.draw.rect(screen, GREY, self.reset_button)
-        reset_text_surface = font.render("Reset", True, BLACK)
+        reset_text_surface = font.render("Reset", True, WHITE)
         reset_text_rect = reset_text_surface.get_rect(center=self.reset_button.center)
         screen.blit(reset_text_surface, reset_text_rect)
 
     def draw_exit_button(self, screen, font):
         pygame.draw.rect(screen, GREY, self.exit_button)
-        exit_text_surface = font.render("Exit", True, BLACK)
+        exit_text_surface = font.render("Exit", True, WHITE)
         exit_text_rect = exit_text_surface.get_rect(center=self.exit_button.center)
         screen.blit(exit_text_surface, exit_text_rect)
